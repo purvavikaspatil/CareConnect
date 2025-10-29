@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "buildCommand": "cd elderly-assistant && npm run build",
+  "outputDirectory": "elderly-assistant/dist",
+  "installCommand": "cd elderly-assistant && npm install",
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
