@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Pill, Clock, Plus, Trash2, AlertCircle } from 'lucide-react'
 import axios from 'axios'
-
-const API_URL = 'http://localhost:5000/api/reminders'
+import { API_ENDPOINTS } from '../config/api'
 
 function Reminders() {
   const [reminders, setReminders] = useState([])
@@ -49,7 +48,7 @@ function Reminders() {
       setApiError('')
       
       const token = localStorage.getItem('token')
-      const response = await axios.get(API_URL, {
+      const response = await axios.get(API_ENDPOINTS.REMINDERS, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -97,7 +96,7 @@ function Reminders() {
       const token = localStorage.getItem('token')
       
       // Send POST request to backend
-      const response = await axios.post(API_URL, newReminder, {
+      const response = await axios.post(API_ENDPOINTS.REMINDERS, newReminder, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -132,7 +131,7 @@ function Reminders() {
       const token = localStorage.getItem('token')
       
       // Send DELETE request to backend
-      const response = await axios.delete(`${API_URL}/${id}`, {
+      const response = await axios.delete(`${API_ENDPOINTS.REMINDERS}/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }

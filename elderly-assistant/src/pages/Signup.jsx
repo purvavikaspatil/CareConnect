@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import axios from 'axios'
-
-const API_URL = 'http://localhost:5000/api/auth'
+import { API_ENDPOINTS } from '../config/api'
 
 function Signup() {
   const [name, setName] = useState('')
@@ -30,7 +29,7 @@ function Signup() {
     setLoading(true)
 
     try {
-      const response = await axios.post(`${API_URL}/signup`, {
+      const response = await axios.post(`${API_ENDPOINTS.AUTH}/signup`, {
         name: name.trim(),
         email: email.trim(),
         password,
