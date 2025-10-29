@@ -1,0 +1,17 @@
+# Render deployment configuration
+# This file helps Render understand how to deploy your app
+
+# Build Command (Render will run this to install dependencies)
+npm install
+
+# Start Command (Render will run this to start your app)
+npm start
+
+# Environment Variables needed:
+# MONGODB_URI - Your MongoDB connection string
+# PORT - Render will set this automatically
+# JWT_SECRET - Your JWT secret key
+# EMAIL_USER - Your email for notifications
+# EMAIL_PASS - Your email password
+# TWILIO_ACCOUNT_SID - Twilio account SID
+# TWILIO_AUTH_TOKEN - Twilio auth token
