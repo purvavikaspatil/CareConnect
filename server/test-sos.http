@@ -1,0 +1,44 @@
+### Test SOS Alert Endpoints
+
+### 1. Create SOS Alert (with location)
+POST http://localhost:5000/api/sos
+Content-Type: application/json
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+{
+  "latitude": 40.7128,
+  "longitude": -74.0060,
+  "accuracy": 10,
+  "message": "Emergency! Need help immediately!"
+}
+
+### 2. Create SOS Alert (without location)
+POST http://localhost:5000/api/sos
+Content-Type: application/json
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+{
+  "message": "Emergency alert - location unavailable"
+}
+
+### 3. Get all SOS alerts for logged-in user
+GET http://localhost:5000/api/sos
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+### 4. Get specific SOS alert by ID
+GET http://localhost:5000/api/sos/ALERT_ID_HERE
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+### 5. Update SOS alert status (mark as resolved)
+PUT http://localhost:5000/api/sos/ALERT_ID_HERE
+Content-Type: application/json
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+{
+  "status": "resolved"
+}
+
+### 6. Delete SOS alert
+DELETE http://localhost:5000/api/sos/ALERT_ID_HERE
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+

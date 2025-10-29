@@ -1,0 +1,46 @@
+### Test Authentication Endpoints
+
+### 1. Signup - Register a new user
+POST http://localhost:5000/api/auth/signup
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "password123"
+}
+
+### 2. Login - Get JWT token
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "john@example.com",
+  "password": "password123"
+}
+
+### 3. Get Current User Info (Protected Route)
+GET http://localhost:5000/api/auth/me
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+### Test Reminder Endpoints (All Protected)
+
+### 4. Create a new reminder (requires authentication)
+POST http://localhost:5000/api/reminders
+Content-Type: application/json
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+{
+  "medicineName": "Aspirin",
+  "time": "08:00 AM",
+  "note": "Take with food"
+}
+
+### 5. Get all reminders for authenticated user
+GET http://localhost:5000/api/reminders
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+### 6. Delete a reminder (replace :id with actual reminder ID)
+DELETE http://localhost:5000/api/reminders/REMINDER_ID_HERE
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+

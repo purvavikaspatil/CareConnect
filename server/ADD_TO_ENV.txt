@@ -1,0 +1,41 @@
+# ============================================
+# COPY THESE LINES TO YOUR server/.env FILE
+# ============================================
+
+# JWT Secret (Required for authentication)
+JWT_SECRET=elderly-assistant-super-secret-key-change-in-production-2025
+
+# ============================================
+# EMAIL NOTIFICATIONS (Gmail)
+# ============================================
+# 1. Go to: https://myaccount.google.com/security
+# 2. Enable "2-Step Verification"
+# 3. Go to: https://myaccount.google.com/apppasswords
+# 4. Generate app password for "Mail" → "Other (Elderly Assistant)"
+# 5. Copy the 16-character password below (remove spaces)
+
+EMAIL_USER=your-email@gmail.com
+EMAIL_PASS=your-16-char-app-password-here
+
+# ============================================
+# SMS NOTIFICATIONS (Twilio)
+# ============================================
+# 1. Sign up: https://www.twilio.com/try-twilio
+# 2. Go to: https://console.twilio.com/
+# 3. Copy Account SID and Auth Token
+# 4. Buy a phone number with SMS capability
+# 5. Verify recipient phone numbers (for trial accounts)
+
+TWILIO_SID=ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+TWILIO_AUTH=your_twilio_auth_token_here
+TWILIO_PHONE=+15551234567
+
+# ============================================
+# INSTRUCTIONS:
+# ============================================
+# 1. Replace the placeholder values above with your actual credentials
+# 2. You can start with JUST email OR JUST SMS (you don't need both)
+# 3. After adding credentials, save the file
+# 4. Restart your server (Ctrl+C then npm run dev)
+# 5. Test with: node debug-notifications.js
+

@@ -1,0 +1,59 @@
+### Test Elderly Assistant API
+### You can use VS Code REST Client extension or any HTTP client like Postman
+
+### Root endpoint
+GET http://localhost:5000
+
+###
+
+### Get all reminders
+GET http://localhost:5000/api/reminders
+
+###
+
+### Create a new reminder
+POST http://localhost:5000/api/reminders
+Content-Type: application/json
+
+{
+  "medicineName": "Aspirin",
+  "time": "08:00",
+  "note": "Take with food"
+}
+
+###
+
+### Create another reminder
+POST http://localhost:5000/api/reminders
+Content-Type: application/json
+
+{
+  "medicineName": "Blood Pressure Medicine",
+  "time": "20:00",
+  "note": "Take before dinner"
+}
+
+###
+
+### Get a single reminder (replace :id with actual reminder ID)
+GET http://localhost:5000/api/reminders/YOUR_REMINDER_ID_HERE
+
+###
+
+### Update a reminder (replace :id with actual reminder ID)
+PUT http://localhost:5000/api/reminders/YOUR_REMINDER_ID_HERE
+Content-Type: application/json
+
+{
+  "medicineName": "Aspirin Updated",
+  "time": "09:00",
+  "note": "Take with breakfast"
+}
+
+###
+
+### Delete a reminder (replace :id with actual reminder ID)
+DELETE http://localhost:5000/api/reminders/YOUR_REMINDER_ID_HERE
+
+###
+
