@@ -27,8 +27,8 @@ const sendEmail = async (to, subject, text, html = null, fromName = null, fromEm
 
     // Email options
     const mailOptions = {
-      from: `"${senderName}" <${process.env.EMAIL_USER}>`, // Use authenticated email for actual sending
-      replyTo: fromEmail || process.env.EMAIL_USER, // Reply to user's email
+      from: `"${senderName} via CareConnect" <${process.env.EMAIL_USER}>`, // Show user name prominently
+      replyTo: fromEmail || process.env.EMAIL_USER, // Reply goes to user's email
       to: to,
       subject: subject,
       text: text,
@@ -104,9 +104,9 @@ const sendSOSAlertEmails = async (contacts, alertData) => {
 
   // Plain text version
   const textContent = `
-EMERGENCY ALERT!
+🚨 EMERGENCY ALERT 🚨
 
-${userName} has triggered an emergency alert.
+${userName} (${userEmail}) has triggered an emergency alert and needs your help!
 
 ${message || 'Emergency assistance needed immediately!'}
 
@@ -115,10 +115,14 @@ ${mapLink ? `\nView location on map: ${mapLink}` : ''}
 
 Time: ${timestamp || new Date().toLocaleString()}
 
-Please check on them immediately or contact emergency services if needed.
+⚠️ IMMEDIATE ACTION REQUIRED:
+- Check on ${userName} immediately
+- Call them at their phone number
+- Contact emergency services (911) if needed
 
 ---
-This is an automated message from Elderly Assistant.
+This alert was sent by ${userName} through CareConnect Emergency System.
+You can reply to this email to reach ${userName} directly at: ${userEmail}
   `.trim();
 
   // HTML version
@@ -144,6 +148,7 @@ This is an automated message from Elderly Assistant.
     <div class="content">
       <div class="alert-box">
         <h2>${userName} has triggered an emergency alert</h2>
+        <p><strong>Sent by:</strong> ${userName} (${userEmail})</p>
         <p><strong>Time:</strong> ${timestamp || new Date().toLocaleString()}</p>
       </div>
       
@@ -154,17 +159,17 @@ This is an automated message from Elderly Assistant.
       ${mapLink ? `<a href="${mapLink}" class="button">📍 View Location on Google Maps</a>` : ''}
       
       <div style="margin-top: 20px; padding: 15px; background: #fff3cd; border-radius: 5px;">
-        <p style="margin: 0;"><strong>⚠️ Please take action:</strong></p>
+        <p style="margin: 0;"><strong>⚠️ IMMEDIATE ACTION REQUIRED:</strong></p>
         <ul style="margin-top: 10px;">
           <li>Check on ${userName} immediately</li>
-          <li>Call them at ${userEmail || 'their phone'}</li>
+          <li>Call them at their phone number</li>
           <li>Contact emergency services if needed (911)</li>
         </ul>
       </div>
     </div>
     <div class="footer">
-      <p>This is an automated emergency alert from Elderly Assistant.</p>
-      <p>If you received this in error, please contact support.</p>
+      <p>This alert was sent by <strong>${userName}</strong> through CareConnect Emergency System.</p>
+      <p>Reply to this email to reach ${userName} directly at: <strong>${userEmail}</strong></p>
     </div>
   </div>
 </body>
