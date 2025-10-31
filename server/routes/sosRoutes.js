@@ -50,8 +50,14 @@ router.post('/', authMiddleware, async (req, res) => {
     // Fetch user's contacts
     try {
       const contacts = await Contact.find({ userId: req.user.id });
+      console.log(`📋 Found ${contacts.length} contacts for user ${req.user.name}`);
       
       if (contacts.length > 0) {
+        // Log contact details (for debugging)
+        contacts.forEach((contact, index) => {
+          console.log(`   Contact ${index + 1}: ${contact.name} - Email: ${contact.email || 'NO EMAIL'} - Phone: ${contact.phone || 'NO PHONE'}`);
+        });
+
         // Prepare alert data for notifications
         const alertNotificationData = {
           userName: req.user.name,
@@ -61,22 +67,36 @@ router.post('/', authMiddleware, async (req, res) => {
           timestamp: sosAlert.timestamp || new Date().toLocaleString(),
         };
 
+        console.log('📤 Attempting to send email alerts...');
+        console.log('   From:', req.user.name, `<${req.user.email}>`);
+        console.log('   EMAIL_USER configured:', process.env.EMAIL_USER ? 'YES' : 'NO');
+        console.log('   EMAIL_PASS configured:', process.env.EMAIL_PASS ? 'YES' : 'NO');
+
         // Send email alerts asynchronously (don't wait for completion)
         sendSOSAlertEmails(contacts, alertNotificationData)
           .then((emailResult) => {
             console.log(
-              `📧 Email alerts sent: ${emailResult.emailsSent} successful, ${emailResult.emailsFailed} failed`
+              `✅ Email alerts sent: ${emailResult.emailsSent} successful, ${emailResult.emailsFailed} failed`
             );
+            if (emailResult.results) {
+              emailResult.results.forEach((result, idx) => {
+                if (!result.success) {
+                  console.error(`   ❌ Failed to send to ${result.recipient}: ${result.error}`);
+                }
+              });
+            }
           })
           .catch((emailError) => {
             console.error('❌ Error sending email alerts:', emailError);
+            console.error('   Error details:', emailError.message);
           });
       } else {
-        console.log('No emergency contacts found for this user');
+        console.log('⚠️  No emergency contacts found for this user');
       }
     } catch (contactError) {
       // Log error but don't fail the SOS alert creation
-      console.error('Error fetching contacts for notifications:', contactError);
+      console.error('❌ Error fetching contacts for notifications:', contactError);
+      console.error('   Error details:', contactError.message);
     }
 
     // Log success summary
