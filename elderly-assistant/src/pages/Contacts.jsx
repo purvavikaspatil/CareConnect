@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { API_ENDPOINTS } from '../config/api'
 
-const API_URL = 'http://localhost:5000/api/contacts'
+const API_URL = API_ENDPOINTS.CONTACTS
 
 function Contacts() {
   const [contacts, setContacts] = useState([])
