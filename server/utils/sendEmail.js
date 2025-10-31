@@ -6,9 +6,11 @@ const nodemailer = require('nodemailer');
  * @param {string} subject - Email subject
  * @param {string} text - Plain text email body
  * @param {string} html - HTML email body (optional)
+ * @param {string} fromName - Sender name (optional)
+ * @param {string} fromEmail - Sender email (optional)
  * @returns {Promise<Object>} - Email sending result
  */
-const sendEmail = async (to, subject, text, html = null) => {
+const sendEmail = async (to, subject, text, html = null, fromName = null, fromEmail = null) => {
   try {
     // Create transporter using environment variables
     const transporter = nodemailer.createTransport({
@@ -19,9 +21,14 @@ const sendEmail = async (to, subject, text, html = null) => {
       },
     });
 
+    // Determine sender info
+    const senderName = fromName || 'CareConnect Emergency Alert';
+    const senderEmail = fromEmail || process.env.EMAIL_USER;
+
     // Email options
     const mailOptions = {
-      from: `"Elderly Assistant" <${process.env.EMAIL_USER}>`,
+      from: `"${senderName}" <${process.env.EMAIL_USER}>`, // Use authenticated email for actual sending
+      replyTo: fromEmail || process.env.EMAIL_USER, // Reply to user's email
       to: to,
       subject: subject,
       text: text,
@@ -76,7 +83,7 @@ const sendSOSAlertEmails = async (contacts, alertData) => {
   }
 
   // Prepare email content
-  const subject = '🚨 Emergency Alert from Elderly Assistant';
+  const subject = `🚨 EMERGENCY ALERT from ${userName}`;
   
   let locationText = 'Location not available';
   let locationHTML = '<p><strong>Location:</strong> Not available</p>';
@@ -165,8 +172,9 @@ This is an automated message from Elderly Assistant.
   `.trim();
 
   // Send emails to all contacts with email addresses
+  // Use the user's name and email as the sender
   const emailPromises = contactsWithEmail.map((contact) =>
-    sendEmail(contact.email, subject, textContent, htmlContent)
+    sendEmail(contact.email, subject, textContent, htmlContent, userName, userEmail)
   );
 
   // Wait for all emails to be sent (or fail)
