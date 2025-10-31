@@ -45,6 +45,19 @@ function Help() {
       navigator.geolocation.getCurrentPosition(
         // Success - send alert with location
         async (position) => {
+          console.log('📍 Location captured successfully:')
+          console.log('   Latitude:', position.coords.latitude)
+          console.log('   Longitude:', position.coords.longitude)
+          console.log('   Accuracy:', position.coords.accuracy, 'meters')
+          console.log('   Timestamp:', new Date(position.timestamp).toLocaleString())
+          
+          // Warn if accuracy is poor (>100m)
+          if (position.coords.accuracy > 100) {
+            console.warn('⚠️ Location accuracy is poor:', Math.round(position.coords.accuracy), 'meters')
+            console.warn('💡 Tip: Use a mobile device with GPS for better accuracy')
+            setLocationWarning(`Location accuracy is low (${Math.round(position.coords.accuracy/1000)}km). Using a phone/tablet will give better results.`)
+          }
+          
           await sendSOSAlert(token, {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
@@ -57,11 +70,11 @@ function Help() {
           setLocationWarning('Location not shared - sending alert without coordinates')
           await sendSOSAlert(token, null)
         },
-        {
-          enableHighAccuracy: true,
-          timeout: 5000,
-          maximumAge: 0
-        }
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 0
+      }
       )
     } else {
       // Geolocation not supported - send alert without location
@@ -157,8 +170,17 @@ function Help() {
         setLocation(locationData)
         setLoadingLocation(false)
         
+        // Warn if accuracy is poor
+        if (position.coords.accuracy > 100) {
+          setLocationError(`⚠️ Location accuracy is low (${Math.round(position.coords.accuracy/1000)}km). For emergency situations, please use a mobile device with GPS for better accuracy.`)
+        }
+        
         // Here you would send location to backend
         console.log('Location data:', locationData)
+        console.log('Accuracy quality:', position.coords.accuracy < 50 ? '✅ Excellent (GPS)' : 
+                                       position.coords.accuracy < 100 ? '✅ Good (GPS)' : 
+                                       position.coords.accuracy < 1000 ? '⚠️ Fair (WiFi)' : 
+                                       '❌ Poor (IP-based)')
       },
       (error) => {
         setLoadingLocation(false)
@@ -431,7 +453,15 @@ function Help() {
               </div>
               <div className="flex justify-between items-center py-2 border-b border-gray-200">
                 <span className="font-medium text-gray-700">Accuracy:</span>
-                <span className="text-gray-900">{Math.round(location.accuracy)} meters</span>
+                <span className="text-gray-900">
+                  {location.accuracy < 1000 ? 
+                    `${Math.round(location.accuracy)} meters` : 
+                    `${Math.round(location.accuracy/1000)} km`}
+                  {location.accuracy < 50 && <span className="ml-2 text-green-600">✅ Excellent</span>}
+                  {location.accuracy >= 50 && location.accuracy < 100 && <span className="ml-2 text-green-600">✅ Good</span>}
+                  {location.accuracy >= 100 && location.accuracy < 1000 && <span className="ml-2 text-yellow-600">⚠️ Fair</span>}
+                  {location.accuracy >= 1000 && <span className="ml-2 text-red-600">❌ Poor</span>}
+                </span>
               </div>
               <div className="flex justify-between items-center py-2">
                 <span className="font-medium text-gray-700">Timestamp:</span>

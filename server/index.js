@@ -15,10 +15,7 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'x-auth-token'],
   credentials: false
-})); // Enable CORS for all routes
-
-// Handle preflight OPTIONS requests
-app.options('*', cors());
+})); // Enable CORS for all routes (handles OPTIONS automatically)
 
 app.use(express.json()); // Parse JSON request bodies
 
