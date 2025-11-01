@@ -8,13 +8,23 @@ const authMiddleware = require('../middleware/authMiddleware');
 // @access  Private
 router.get('/', authMiddleware, async (req, res) => {
   try {
+    console.log('📋 Fetching reminders for user:', req.user.name, `(${req.user.id})`);
     const reminders = await Reminder.find({ userId: req.user.id }).sort({ time: 1 });
+    console.log(`✅ Found ${reminders.length} reminders for ${req.user.name}`);
+    
+    if (reminders.length > 0) {
+      reminders.forEach((reminder, idx) => {
+        console.log(`   ${idx + 1}. ${reminder.medicineName} at ${reminder.time}`);
+      });
+    }
+    
     res.json({
       success: true,
       count: reminders.length,
       data: reminders,
     });
   } catch (error) {
+    console.error('❌ Error fetching reminders:', error);
     res.status(500).json({
       success: false,
       error: 'Server Error: Unable to fetch reminders',
@@ -28,6 +38,11 @@ router.get('/', authMiddleware, async (req, res) => {
 router.post('/', authMiddleware, async (req, res) => {
   try {
     const { medicineName, time, note } = req.body;
+
+    console.log('💊 Creating reminder for user:', req.user.name);
+    console.log('   Medicine:', medicineName);
+    console.log('   Time:', time);
+    console.log('   Note:', note || 'None');
 
     // Validation
     if (!medicineName || !time) {
@@ -44,11 +59,14 @@ router.post('/', authMiddleware, async (req, res) => {
       note: note || '',
     });
 
+    console.log('✅ Reminder created successfully with ID:', reminder._id);
+
     res.status(201).json({
       success: true,
       data: reminder,
     });
   } catch (error) {
+    console.error('❌ Error creating reminder:', error);
     res.status(500).json({
       success: false,
       error: 'Server Error: Unable to create reminder',
