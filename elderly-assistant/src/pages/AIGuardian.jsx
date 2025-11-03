@@ -47,7 +47,10 @@ function AIGuardian() {
   }
 
   useEffect(() => {
-    scrollToBottom()
+    // Only auto-scroll if there are multiple messages (user has interacted)
+    if (messages.length > 1) {
+      scrollToBottom()
+    }
   }, [messages])
 
   // Load user info and check AI status
