@@ -344,9 +344,12 @@ function Reminders() {
                   <motion.div
                     key={reminder._id}
                     variants={itemVariants}
+                    initial={{ opacity: 1 }}
+                    animate={{ opacity: 1 }}
                     exit={{ opacity: 0, x: -50, scale: 0.9 }}
-                    className="glass-card rounded-3xl p-6 sm:p-8 border-l-4 border-accent-500 shadow-lg hover:shadow-2xl transition-shadow group"
+                    className="glass-card rounded-3xl p-6 sm:p-8 border-l-4 border-accent-500 shadow-lg hover:shadow-2xl transition-shadow group bg-white dark:bg-gray-800"
                     whileHover={{ scale: 1.02, y: -4 }}
+                    style={{ minHeight: '120px' }}
                   >
                     <div className="flex justify-between items-start gap-4">
                       <div className="flex-grow">
@@ -357,7 +360,7 @@ function Reminders() {
                           >
                             💊
                           </motion.span>
-                          <h3 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-accent-500 to-primary-600 bg-clip-text text-transparent tracking-tight">
+                          <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white tracking-tight">
                             {reminder.medicineName}
                           </h3>
                         </div>
