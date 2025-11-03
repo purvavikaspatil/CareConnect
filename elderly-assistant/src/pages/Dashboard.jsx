@@ -16,8 +16,7 @@ import {
   Shield
 } from 'lucide-react'
 import axios from 'axios'
-
-const API_URL = 'http://localhost:5000/api'
+import { API_ENDPOINTS } from '../config/api'
 
 function Dashboard() {
   const [user, setUser] = useState({ name: 'Friend' })
@@ -73,7 +72,7 @@ function Dashboard() {
   const fetchReminders = async () => {
     try {
       const token = localStorage.getItem('token')
-      const response = await axios.get(`${API_URL}/reminders`, {
+      const response = await axios.get(API_ENDPOINTS.REMINDERS, {
         headers: { Authorization: `Bearer ${token}` }
       })
       
