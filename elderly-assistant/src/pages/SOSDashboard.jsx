@@ -146,8 +146,8 @@ function SOSDashboard() {
       {/* Alerts Grid - Desktop */}
       {!loading && !error && alerts.length > 0 && (
         <>
-          <div className="mb-4 text-gray-600">
-            <span className="font-semibold">{alerts.length}</span> alert{alerts.length !== 1 ? 's' : ''} found
+          <div className="mb-4 text-gray-900 dark:text-white font-medium text-lg">
+            <span className="font-bold">{alerts.length}</span> alert{alerts.length !== 1 ? 's' : ''} found
           </div>
 
           {/* Mobile: Stacked Cards */}
