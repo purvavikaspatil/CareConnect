@@ -279,7 +279,7 @@ function Dashboard() {
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-3xl font-bold flex items-center gap-3 tracking-tight">
               <Pill className="text-accent-500 dark:text-accent-400" size={32} />
-              <span className="bg-gradient-to-r from-accent-500 to-primary-600 bg-clip-text text-transparent">
+              <span className="text-gray-900 dark:text-white">
                 Today's Reminders
               </span>
             </h2>
