@@ -172,6 +172,7 @@ function Home() {
                 icon: Shield,
                 color: 'from-primary-500 to-primary-700',
                 bgColor: 'bg-primary-50 dark:bg-primary-900/20',
+                iconColor: 'text-primary-600 dark:text-primary-400',
                 title: 'AI Companion',
                 description: '24/7 empathetic AI that listens and helps with tasks'
               },
@@ -179,6 +180,7 @@ function Home() {
                 icon: Video,
                 color: 'from-secondary-400 to-secondary-600',
                 bgColor: 'bg-secondary-50 dark:bg-secondary-900/20',
+                iconColor: 'text-secondary-500 dark:text-secondary-400',
                 title: 'Video Chats',
                 description: 'Connect with friends who share your interests'
               },
@@ -186,6 +188,7 @@ function Home() {
                 icon: Heart,
                 color: 'from-danger to-danger-dark',
                 bgColor: 'bg-red-50 dark:bg-red-900/20',
+                iconColor: 'text-red-600 dark:text-red-400',
                 title: 'Emergency SOS',
                 description: 'Voice-activated emergency alerts with GPS location'
               },
@@ -193,6 +196,7 @@ function Home() {
                 icon: Brain,
                 color: 'from-accent-400 to-accent-600',
                 bgColor: 'bg-accent-50 dark:bg-accent-900/20',
+                iconColor: 'text-accent-600 dark:text-accent-400',
                 title: 'Smart Reminders',
                 description: 'Never miss medications or appointments'
               }
@@ -214,7 +218,7 @@ function Home() {
                     whileHover={{ rotate: [0, -10, 10, 0] }}
                     transition={{ duration: 0.5 }}
                   >
-                    <Icon className={`w-7 h-7 bg-gradient-to-br ${feature.color} bg-clip-text text-transparent`} />
+                    <Icon className={`w-7 h-7 ${feature.iconColor}`} />
                   </motion.div>
                   <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors tracking-tight">
                     {feature.title}
