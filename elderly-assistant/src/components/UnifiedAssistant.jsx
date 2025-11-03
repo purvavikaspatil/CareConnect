@@ -427,25 +427,25 @@ const UnifiedAssistant = () => {
             <div className="mt-6 grid grid-cols-2 gap-2 sm:gap-3">
               <button
                 onClick={() => handleUserInput("I'm feeling lonely", false)}
-                className="bg-white hover:bg-purple-50 text-left px-3 sm:px-4 py-2 sm:py-3 rounded-lg border border-purple-200 transition-colors text-xs sm:text-sm"
+                className="bg-white hover:bg-purple-50 text-gray-800 text-left px-3 sm:px-4 py-2 sm:py-3 rounded-lg border border-purple-200 transition-colors text-xs sm:text-sm font-medium"
               >
                 😢 "I'm feeling lonely"
               </button>
               <button
                 onClick={() => handleUserInput("Show my reminders", false)}
-                className="bg-white hover:bg-purple-50 text-left px-3 sm:px-4 py-2 sm:py-3 rounded-lg border border-purple-200 transition-colors text-xs sm:text-sm"
+                className="bg-white hover:bg-purple-50 text-gray-800 text-left px-3 sm:px-4 py-2 sm:py-3 rounded-lg border border-purple-200 transition-colors text-xs sm:text-sm font-medium"
               >
                 📋 "Show reminders"
               </button>
               <button
                 onClick={() => handleUserInput("Talk to a friend", false)}
-                className="bg-white hover:bg-purple-50 text-left px-3 sm:px-4 py-2 sm:py-3 rounded-lg border border-purple-200 transition-colors text-xs sm:text-sm"
+                className="bg-white hover:bg-purple-50 text-gray-800 text-left px-3 sm:px-4 py-2 sm:py-3 rounded-lg border border-purple-200 transition-colors text-xs sm:text-sm font-medium"
               >
                 💬 "Talk to a friend"
               </button>
               <button
                 onClick={() => handleUserInput("How are you?", false)}
-                className="bg-white hover:bg-purple-50 text-left px-3 sm:px-4 py-2 sm:py-3 rounded-lg border border-purple-200 transition-colors text-xs sm:text-sm"
+                className="bg-white hover:bg-purple-50 text-gray-800 text-left px-3 sm:px-4 py-2 sm:py-3 rounded-lg border border-purple-200 transition-colors text-xs sm:text-sm font-medium"
               >
                 👋 "How are you?"
               </button>

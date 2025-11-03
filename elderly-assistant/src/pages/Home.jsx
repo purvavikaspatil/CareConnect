@@ -89,7 +89,7 @@ function Home() {
               whileHover={{ scale: 1.05, boxShadow: "0px 0px 20px rgba(100, 180, 255, 0.4)" }}
             >
               <Sparkles size={18} className="text-primary-600 dark:text-primary-300" />
-              <span className="text-sm font-semibold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">
+              <span className="text-sm font-semibold text-primary-600 dark:text-primary-300">
                 Your Digital Companion
               </span>
             </motion.div>
