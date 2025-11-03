@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const authMiddleware = require('../middleware/authMiddleware');
 
 // Generate JWT Token
 const generateToken = (userId) => {
@@ -129,7 +130,7 @@ router.post('/login', async (req, res) => {
 // @route   GET /api/auth/me
 // @desc    Get current logged in user
 // @access  Private (requires auth middleware)
-router.get('/me', async (req, res) => {
+router.get('/me', authMiddleware, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
     
@@ -146,6 +147,14 @@ router.get('/me', async (req, res) => {
         id: user._id,
         name: user.name,
         email: user.email,
+        age: user.age,
+        phone: user.phone,
+        address: user.address,
+        emergencyContactName: user.emergencyContactName,
+        emergencyContactPhone: user.emergencyContactPhone,
+        bloodType: user.bloodType,
+        allergies: user.allergies,
+        createdAt: user.createdAt,
       },
     });
   } catch (error) {
@@ -153,6 +162,71 @@ router.get('/me', async (req, res) => {
     res.status(500).json({
       success: false,
       error: 'Server Error: Unable to fetch user',
+    });
+  }
+});
+
+// @route   PUT /api/auth/profile
+// @desc    Update user profile
+// @access  Private (requires auth middleware)
+router.put('/profile', authMiddleware, async (req, res) => {
+  try {
+    const { 
+      name, 
+      age, 
+      phone, 
+      address, 
+      emergencyContactName, 
+      emergencyContactPhone,
+      bloodType,
+      allergies
+    } = req.body;
+
+    const user = await User.findById(req.user.id);
+    
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        error: 'User not found',
+      });
+    }
+
+    // Update fields if provided
+    if (name) user.name = name;
+    if (age !== undefined) user.age = age;
+    if (phone !== undefined) user.phone = phone;
+    if (address !== undefined) user.address = address;
+    if (emergencyContactName !== undefined) user.emergencyContactName = emergencyContactName;
+    if (emergencyContactPhone !== undefined) user.emergencyContactPhone = emergencyContactPhone;
+    if (bloodType !== undefined) user.bloodType = bloodType;
+    if (allergies !== undefined) user.allergies = allergies;
+
+    await user.save();
+
+    console.log('✅ Profile updated for user:', user.name);
+
+    res.json({
+      success: true,
+      message: 'Profile updated successfully',
+      data: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        age: user.age,
+        phone: user.phone,
+        address: user.address,
+        emergencyContactName: user.emergencyContactName,
+        emergencyContactPhone: user.emergencyContactPhone,
+        bloodType: user.bloodType,
+        allergies: user.allergies,
+        createdAt: user.createdAt,
+      },
+    });
+  } catch (error) {
+    console.error('Update Profile Error:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Server Error: Unable to update profile',
     });
   }
 });

@@ -25,6 +25,40 @@ const userSchema = new mongoose.Schema(
       minlength: [6, 'Password must be at least 6 characters'],
       select: false, // Don't return password by default in queries
     },
+    age: {
+      type: Number,
+      default: null,
+    },
+    phone: {
+      type: String,
+      default: '',
+      trim: true,
+    },
+    address: {
+      type: String,
+      default: '',
+      trim: true,
+    },
+    emergencyContactName: {
+      type: String,
+      default: '',
+      trim: true,
+    },
+    emergencyContactPhone: {
+      type: String,
+      default: '',
+      trim: true,
+    },
+    bloodType: {
+      type: String,
+      default: '',
+      trim: true,
+    },
+    allergies: {
+      type: String,
+      default: '',
+      trim: true,
+    },
     hobbies: {
       type: [String],
       default: [],
