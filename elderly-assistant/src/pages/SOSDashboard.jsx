@@ -88,10 +88,10 @@ function SOSDashboard() {
     <main className="flex-grow container mx-auto px-4 py-8 max-w-6xl">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-2">
+        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-2">
           🚨 SOS Alert History
         </h1>
-        <p className="text-gray-600 text-lg">
+        <p className="text-gray-900 dark:text-gray-100 text-lg font-medium">
           View all your emergency alerts and their details
         </p>
       </div>
@@ -100,7 +100,7 @@ function SOSDashboard() {
       {loading && (
         <div className="flex flex-col items-center justify-center py-12">
           <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600 mb-4"></div>
-          <p className="text-gray-600 text-lg">Loading your alerts...</p>
+          <p className="text-gray-900 dark:text-white text-lg font-medium">Loading your alerts...</p>
         </div>
       )}
 
