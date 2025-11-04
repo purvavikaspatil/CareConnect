@@ -132,14 +132,19 @@ router.post('/login', async (req, res) => {
 // @access  Private (requires auth middleware)
 router.get('/me', authMiddleware, async (req, res) => {
   try {
+    console.log('👤 Fetching user profile for ID:', req.user.id);
+    
     const user = await User.findById(req.user.id);
     
     if (!user) {
+      console.error('❌ User not found with ID:', req.user.id);
       return res.status(404).json({
         success: false,
         error: 'User not found',
       });
     }
+
+    console.log('✅ User profile fetched:', user.name);
 
     res.json({
       success: true,
@@ -158,7 +163,8 @@ router.get('/me', authMiddleware, async (req, res) => {
       },
     });
   } catch (error) {
-    console.error('Get User Error:', error);
+    console.error('❌ Get User Error:', error);
+    console.error('Error details:', error.message);
     res.status(500).json({
       success: false,
       error: 'Server Error: Unable to fetch user',
