@@ -37,10 +37,17 @@ function Profile() {
   const fetchUserProfile = async () => {
     try {
       setLoading(true)
+      setError('')
       const token = localStorage.getItem('token')
+      
+      console.log('Fetching profile from:', `${API_ENDPOINTS.AUTH}/me`)
+      console.log('Token:', token ? 'Present' : 'Missing')
+
       const response = await axios.get(`${API_ENDPOINTS.AUTH}/me`, {
         headers: { Authorization: `Bearer ${token}` }
       })
+
+      console.log('Profile response:', response.data)
 
       if (response.data.success) {
         const userData = response.data.data
@@ -58,12 +65,16 @@ function Profile() {
       }
     } catch (error) {
       console.error('Error fetching profile:', error)
+      console.error('Error response:', error.response?.data)
+      
       if (error.response?.status === 401) {
         localStorage.removeItem('token')
         localStorage.removeItem('user')
         navigate('/login')
+        return
       }
-      setError('Failed to load profile')
+      
+      setError(error.response?.data?.error || 'Failed to load profile. Please try refreshing the page.')
     } finally {
       setLoading(false)
     }
@@ -83,6 +94,9 @@ function Profile() {
       setSuccess('')
 
       const token = localStorage.getItem('token')
+      
+      console.log('Updating profile with data:', formData)
+      
       const response = await axios.put(
         `${API_ENDPOINTS.AUTH}/profile`,
         formData,
@@ -90,6 +104,8 @@ function Profile() {
           headers: { Authorization: `Bearer ${token}` }
         }
       )
+
+      console.log('Update response:', response.data)
 
       if (response.data.success) {
         setUser(response.data.data)
@@ -103,11 +119,15 @@ function Profile() {
           email: response.data.data.email
         }))
 
+        // Refresh profile data from server
+        await fetchUserProfile()
+
         setTimeout(() => setSuccess(''), 3000)
       }
     } catch (error) {
       console.error('Error updating profile:', error)
-      setError(error.response?.data?.error || 'Failed to update profile')
+      console.error('Error response:', error.response?.data)
+      setError(error.response?.data?.error || 'Failed to update profile. Please try again.')
     } finally {
       setSaving(false)
     }
@@ -151,7 +171,7 @@ function Profile() {
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
             Your Profile
           </h1>
-          <p className="text-lg sm:text-xl text-gray-900 dark:text-gray-100 font-medium">
+          <p className="text-lg sm:text-xl text-white dark:text-gray-100 font-medium">
             User profile and settings
           </p>
         </div>
