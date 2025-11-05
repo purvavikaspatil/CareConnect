@@ -192,10 +192,8 @@ function Reminders() {
           >
             💊
           </motion.div>
-          <h1 className="text-3xl sm:text-4xl font-bold mb-2 tracking-tight">
-            <span className="text-gray-900 dark:text-white">
-              Your Reminders
-            </span>
+          <h1 className="text-3xl sm:text-4xl font-bold mb-2 tracking-tight text-gray-900 dark:text-white">
+            Your Reminders
           </h1>
           <p className="text-base sm:text-lg text-gray-700 dark:text-gray-200">
             Never miss your medication schedule
