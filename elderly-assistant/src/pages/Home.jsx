@@ -96,23 +96,23 @@ function Home() {
 
             {/* Main Headline */}
             <motion.h1 
-              className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight tracking-tight"
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold text-black dark:text-white mb-6 leading-tight tracking-tight"
               variants={itemVariants}
             >
               Welcome to{' '}
-              <span className="text-primary-600 dark:text-primary-300 font-extrabold">
+              <span className="text-blue-700 dark:text-primary-300 font-extrabold">
                 CareConnect
               </span>
             </motion.h1>
 
             {/* Subtitle */}
             <motion.p 
-              className="text-lg sm:text-xl lg:text-2xl text-gray-800 dark:text-gray-100 mb-10 max-w-3xl mx-auto leading-relaxed"
+              className="text-lg sm:text-xl lg:text-2xl text-gray-900 dark:text-gray-100 mb-10 max-w-3xl mx-auto leading-relaxed font-medium"
               variants={itemVariants}
             >
               Your trusted companion for daily reminders, health tracking, and staying connected with loved ones. 
               <br />
-              <span className="text-primary-700 dark:text-primary-300 font-semibold">We're here to make every day easier and more comfortable.</span>
+              <span className="text-gray-900 dark:text-primary-300 font-bold">We're here to make every day easier and more comfortable.</span>
             </motion.p>
 
             {/* Action Buttons - Only show if NOT logged in */}
