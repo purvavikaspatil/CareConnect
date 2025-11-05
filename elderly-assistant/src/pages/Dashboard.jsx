@@ -203,7 +203,7 @@ function Dashboard() {
                   >
                     <Shield className="w-10 h-10 text-white" />
                   </motion.div>
-                  <h3 className="text-2xl font-bold text-center mb-2 bg-gradient-to-r from-primary-500 to-primary-700 bg-clip-text text-transparent tracking-tight">
+                  <h3 className="text-2xl font-bold text-center mb-2 text-gray-900 dark:text-white tracking-tight">
                     AI Guardian
                   </h3>
                   <p className="text-center text-gray-700 dark:text-gray-200">
@@ -232,7 +232,7 @@ function Dashboard() {
                   >
                     <Users className="w-10 h-10 text-white" />
                   </motion.div>
-                  <h3 className="text-2xl font-bold text-center mb-2 bg-gradient-to-r from-secondary-400 to-secondary-600 bg-clip-text text-transparent tracking-tight">
+                  <h3 className="text-2xl font-bold text-center mb-2 text-gray-900 dark:text-white tracking-tight">
                     Talk to a Friend
                   </h3>
                   <p className="text-center text-gray-700 dark:text-gray-200">
@@ -262,7 +262,7 @@ function Dashboard() {
                   >
                     <Mic className="w-10 h-10 text-white" />
                   </motion.div>
-                  <h3 className="text-2xl font-bold text-center mb-2 bg-gradient-to-r from-accent-400 to-accent-600 bg-clip-text text-transparent tracking-tight">
+                  <h3 className="text-2xl font-bold text-center mb-2 text-gray-900 dark:text-white tracking-tight">
                     Voice Assistant
                   </h3>
                   <p className="text-center text-gray-700 dark:text-gray-200">
