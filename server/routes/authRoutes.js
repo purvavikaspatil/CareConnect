@@ -145,29 +145,38 @@ router.get('/me', authMiddleware, async (req, res) => {
     }
 
     console.log('✅ User profile fetched:', user.name);
+    console.log('   User data:', {
+      name: user.name,
+      email: user.email,
+      age: user.age || 'not set',
+      phone: user.phone || 'not set'
+    });
 
     res.json({
       success: true,
       data: {
         id: user._id,
-        name: user.name,
-        email: user.email,
-        age: user.age,
-        phone: user.phone,
-        address: user.address,
-        emergencyContactName: user.emergencyContactName,
-        emergencyContactPhone: user.emergencyContactPhone,
-        bloodType: user.bloodType,
-        allergies: user.allergies,
+        name: user.name || '',
+        email: user.email || '',
+        age: user.age || null,
+        phone: user.phone || '',
+        address: user.address || '',
+        emergencyContactName: user.emergencyContactName || '',
+        emergencyContactPhone: user.emergencyContactPhone || '',
+        bloodType: user.bloodType || '',
+        allergies: user.allergies || '',
         createdAt: user.createdAt,
       },
     });
   } catch (error) {
     console.error('❌ Get User Error:', error);
-    console.error('Error details:', error.message);
+    console.error('   Error name:', error.name);
+    console.error('   Error message:', error.message);
+    console.error('   Error stack:', error.stack);
     res.status(500).json({
       success: false,
       error: 'Server Error: Unable to fetch user',
+      details: error.message
     });
   }
 });
