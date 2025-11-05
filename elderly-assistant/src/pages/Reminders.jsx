@@ -193,7 +193,7 @@ function Reminders() {
             💊
           </motion.div>
           <h1 className="text-3xl sm:text-4xl font-bold mb-2 tracking-tight">
-            <span className="bg-gradient-to-r from-accent-500 via-primary-600 to-secondary-500 bg-clip-text text-transparent">
+            <span className="text-gray-900 dark:text-white">
               Your Reminders
             </span>
           </h1>
