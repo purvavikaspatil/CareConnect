@@ -48,11 +48,11 @@ function Navbar() {
     { path: '/dashboard', label: 'Dashboard', icon: Shield },
     { path: '/reminders', label: 'Reminders', icon: Bell },
     { path: '/contacts', label: 'Contacts', icon: Users },
-    { path: '/help', label: 'Help', icon: HelpCircle },
+    { path: '/help', label: 'SOS', icon: HelpCircle },
     { path: '/voice', label: 'Voice', icon: Mic },
     { path: '/friends', label: 'Friends', icon: MessageCircle },
     { path: '/guardian', label: 'AI', icon: Shield },
-    { path: '/sos-dashboard', label: 'SOS', icon: AlertCircle },
+    { path: '/sos-dashboard', label: 'History', icon: AlertCircle },
     { path: '/profile', label: 'Profile', icon: UserCircle },
   ] : [
     { path: '/', label: 'Home', icon: Home },
@@ -66,7 +66,7 @@ function Navbar() {
       transition={{ type: 'spring', stiffness: 100, damping: 20 }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-16 gap-4">
           {/* App Title with Logo Animation */}
           <motion.div 
             className="flex-shrink-0"
@@ -88,11 +88,11 @@ function Navbar() {
           </motion.div>
 
           {/* Desktop Navigation Links with Animated Underlines */}
-          <div className="hidden lg:flex lg:space-x-1 lg:items-center">
+          <div className="hidden lg:flex lg:space-x-2 lg:items-center">
             {navItems.map((item) => {
               const Icon = item.icon
               return (
-                <Link key={item.path} to={item.path} className="relative px-3 py-2 group">
+                <Link key={item.path} to={item.path} className="relative px-2 py-2 group">
                   <motion.div
                     className="flex items-center gap-2 text-sm font-medium text-gray-800 dark:text-gray-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors"
                     whileHover={{ y: -2 }}
@@ -115,7 +115,7 @@ function Navbar() {
             {/* Theme Toggle Button */}
             <motion.button
               onClick={toggleTheme}
-              className="glass px-3 py-2 rounded-full ml-2"
+              className="glass px-3 py-2 rounded-full ml-1"
               whileHover={{ scale: 1.1, rotate: 180 }}
               whileTap={{ scale: 0.9 }}
               transition={{ type: 'spring', stiffness: 400 }}
@@ -131,7 +131,7 @@ function Navbar() {
             {isLoggedIn ? (
               <>
                 <motion.div 
-                  className="flex items-center gap-2 px-3 py-2 ml-2 glass rounded-full"
+                  className="flex items-center gap-2 px-3 py-2 ml-1 glass rounded-full"
                   whileHover={{ scale: 1.05 }}
                 >
                   <UserCircle size={16} className="text-primary-600 dark:text-primary-400" />
@@ -139,17 +139,17 @@ function Navbar() {
                 </motion.div>
                 <motion.button
                   onClick={handleLogout}
-                  className="flex items-center gap-2 bg-gradient-to-r from-danger to-danger-dark text-white font-medium px-4 py-2 rounded-full shadow-md ml-2"
-                  whileHover={{ scale: 1.08, boxShadow: "0px 0px 12px rgba(229, 57, 53, 0.6)" }}
+                  className="flex items-center gap-1.5 bg-gradient-to-r from-danger to-danger-dark text-white font-medium px-3 py-2 rounded-full shadow-md ml-1"
+                  whileHover={{ scale: 1.05, boxShadow: "0px 0px 12px rgba(229, 57, 53, 0.6)" }}
                   whileTap={{ scale: 0.95 }}
                   transition={{ type: 'spring', stiffness: 400 }}
                 >
                   <LogOut size={16} />
-                  <span>Logout</span>
+                  <span className="text-sm">Logout</span>
                 </motion.button>
               </>
             ) : (
-              <div className="flex items-center gap-2 ml-4">
+              <div className="flex items-center gap-2 ml-2">
                 <Link to="/login">
                   <motion.button
                     className="text-gray-800 dark:text-gray-100 hover:text-primary-600 dark:hover:text-primary-400 font-medium px-4 py-2 rounded-full transition-colors"
