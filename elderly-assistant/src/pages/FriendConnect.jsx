@@ -199,10 +199,8 @@ function FriendConnect() {
           >
             💬
           </motion.div>
-          <h1 className="text-4xl sm:text-5xl font-bold mb-4 tracking-tight">
-            <span className="bg-gradient-to-r from-secondary-500 via-primary-500 to-accent-500 bg-clip-text text-transparent">
-              Talk to a Friend
-            </span>
+          <h1 className="text-4xl sm:text-5xl font-bold mb-4 tracking-tight text-white drop-shadow-lg">
+            Talk to a Friend
           </h1>
           <p className="text-lg sm:text-xl text-gray-700 dark:text-gray-200 max-w-2xl mx-auto">
             Connect with someone who shares your interests for a friendly video chat!
@@ -374,7 +372,7 @@ function FriendConnect() {
           <motion.button
             onClick={handleConnectFriend}
             disabled={loading || availableUsers === 0}
-            className="w-full bg-gradient-to-r from-secondary-400 to-secondary-600 disabled:from-warm-400 disabled:to-warm-500 disabled:cursor-not-allowed text-white font-bold text-2xl sm:text-3xl px-8 py-12 rounded-3xl shadow-2xl relative overflow-hidden group"
+            className="w-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed text-white font-bold text-2xl sm:text-3xl px-8 py-12 rounded-3xl shadow-2xl relative overflow-hidden group"
             whileHover={!loading && availableUsers > 0 ? { 
               scale: 1.02, 
               boxShadow: "0px 0px 40px rgba(255, 128, 171, 0.8)" 

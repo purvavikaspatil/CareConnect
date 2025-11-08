@@ -2,17 +2,38 @@ const nodemailer = require('nodemailer');
 
 /**
  * Send an email using Nodemailer
+ * 
+ * IMPORTANT: This function works for ANY user's email address.
+ * - All emails are sent through the configured SMTP account (EMAIL_USER/EMAIL_PASS) for authentication
+ * - The "From" display name shows the user's name and email address
+ * - The "Reply-To" header is set to the user's actual email address
+ * - When recipients reply, the email goes directly to the user's email address
+ * 
+ * This design allows multi-user support while using a single SMTP account.
+ * 
  * @param {string} to - Recipient email address
  * @param {string} subject - Email subject
  * @param {string} text - Plain text email body
  * @param {string} html - HTML email body (optional)
- * @param {string} fromName - Sender name (optional)
- * @param {string} fromEmail - Sender email (optional)
+ * @param {string} fromName - Sender name (optional, defaults to 'CareConnect Emergency Alert')
+ * @param {string} fromEmail - Sender email for Reply-To header (optional, defaults to EMAIL_USER)
  * @returns {Promise<Object>} - Email sending result
  */
 const sendEmail = async (to, subject, text, html = null, fromName = null, fromEmail = null) => {
   try {
+    // Validate email configuration
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+      console.error('❌ EMAIL_USER or EMAIL_PASS not configured in environment variables');
+      return {
+        success: false,
+        error: 'Email service not configured. Please contact administrator.',
+        recipient: to,
+      };
+    }
+
     // Create transporter using environment variables
+    // This uses a single SMTP account for authentication, but emails can be sent
+    // on behalf of any user by setting Reply-To to their email address
     const transporter = nodemailer.createTransport({
       service: 'gmail', // You can change this to other services
       auth: {
@@ -25,10 +46,21 @@ const sendEmail = async (to, subject, text, html = null, fromName = null, fromEm
     const senderName = fromName || 'CareConnect Emergency Alert';
     const senderEmail = fromEmail || process.env.EMAIL_USER;
 
+    // Build the "From" display name to show user's name and email
+    // The actual sending email must be EMAIL_USER for SMTP authentication
+    // But we display the user's info in the display name
+    let fromDisplayName;
+    if (fromName && fromEmail && fromEmail !== process.env.EMAIL_USER) {
+      // Show user's name and email in the display name
+      fromDisplayName = `${fromName} (${fromEmail}) via CareConnect`;
+    } else {
+      fromDisplayName = `${senderName} via CareConnect`;
+    }
+
     // Email options
     const mailOptions = {
-      from: `"${senderName} via CareConnect" <${process.env.EMAIL_USER}>`, // Show user name prominently
-      replyTo: fromEmail || process.env.EMAIL_USER, // Reply goes to user's email
+      from: `"${fromDisplayName}" <${process.env.EMAIL_USER}>`, // Always use EMAIL_USER for SMTP auth
+      replyTo: fromEmail || process.env.EMAIL_USER, // Reply goes to user's email (critical for multi-user support)
       to: to,
       subject: subject,
       text: text,
@@ -42,7 +74,11 @@ const sendEmail = async (to, subject, text, html = null, fromName = null, fromEm
     // Send email
     const info = await transporter.sendMail(mailOptions);
     
-    console.log(`Email sent successfully to ${to}: ${info.messageId}`);
+    console.log(`✅ Email sent successfully to ${to}`);
+    console.log(`   Message ID: ${info.messageId}`);
+    console.log(`   From: ${mailOptions.from}`);
+    console.log(`   Reply-To: ${mailOptions.replyTo}`);
+    
     return {
       success: true,
       messageId: info.messageId,

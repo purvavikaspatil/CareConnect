@@ -68,9 +68,12 @@ router.post('/', authMiddleware, async (req, res) => {
         };
 
         console.log('📤 Attempting to send email alerts...');
-        console.log('   From:', req.user.name, `<${req.user.email}>`);
+        console.log('   User:', req.user.name, `<${req.user.email}>`);
+        console.log('   User ID:', req.user.id);
         console.log('   EMAIL_USER configured:', process.env.EMAIL_USER ? 'YES' : 'NO');
         console.log('   EMAIL_PASS configured:', process.env.EMAIL_PASS ? 'YES' : 'NO');
+        console.log('   Sending through SMTP account:', process.env.EMAIL_USER);
+        console.log('   Reply-To will be set to user email:', req.user.email);
 
         // Send email alerts asynchronously (don't wait for completion)
         sendSOSAlertEmails(contacts, alertNotificationData)
